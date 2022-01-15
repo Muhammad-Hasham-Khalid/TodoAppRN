@@ -6,14 +6,19 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
+import { useAppContext } from '../context';
 import { colors } from '../globals/theme.';
 
 export const AddTodo = () => {
   const [todoTitle, setTodoTitle] = React.useState('');
+  const { addTodo } = useAppContext();
 
   const handleSubmit = useCallback(() => {
-    console.log('Submit Form', todoTitle);
-  }, [todoTitle]);
+    if (todoTitle) {
+      addTodo(todoTitle);
+      setTodoTitle('');
+    }
+  }, [addTodo, todoTitle]);
 
   return (
     <View style={styles.container}>
